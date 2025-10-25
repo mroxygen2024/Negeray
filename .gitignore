@@ -1,0 +1,54 @@
+# Node.js / Express common ignores
+
+# dependencies
+node_modules/
+rag_system/node_modules/
+rag_system/.env/
+Rag_course/node_modules/
+Rag_course/.env/
+
+Qefira
+# runtime data
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# build output
+dist/
+build/
+out/
+
+# testing / coverage
+coverage/
+.nyc_output/
+
+# runtime files
+pids/
+*.pid
+*.seed
+tmp/
+temp/
+
+# environment variables
+.env
+.env.local
+.env.*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# editor / OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# lockfiles (uncomment if you want to ignore lockfiles)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
