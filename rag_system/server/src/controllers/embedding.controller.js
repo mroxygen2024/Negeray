@@ -28,7 +28,7 @@ export const queryText = async (req, res) => {
     const results = await Input.aggregate([
       {
         $vectorSearch: {
-          index: 'vector_search',
+          index: 'vectorIndex',
           path: 'embedding',
           similarity: 'cosine',
           numCandidates: 100,
@@ -64,7 +64,7 @@ export const chatRAG = async (req, res) => {
     const results = await Input.aggregate([
       {
         $vectorSearch: {
-          index: 'vector_search',
+          index: 'vectorIndex',
           path: 'embedding',
           similarity: 'cosine',
           numCandidates: 100,
@@ -80,8 +80,9 @@ export const chatRAG = async (req, res) => {
         }
       }
     ]);
-
+    console.log('RAG Sources:', results);
     const context = results.map(r => r.text).join('\n');
+    console.log('RAG Context:', context);
 
     // Now send context + question to Gemini
     const prompt = `

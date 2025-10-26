@@ -18,6 +18,7 @@ Answer:
         contents: [{ parts: [{ text: prompt }] }]
       })
     });
+    
 
     const data = await response.json();
     console.log("Gemini raw response:", JSON.stringify(data, null, 2));
