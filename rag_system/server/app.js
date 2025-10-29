@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import embeddingRoutes from './src/routes/embedding.route.js';
+import embeddingRoutes from './src/routes/rag.routes.js';
 import morgan from 'morgan';
 
 const app = express();
