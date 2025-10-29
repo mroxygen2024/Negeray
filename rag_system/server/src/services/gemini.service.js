@@ -1,11 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-/**
- * Sends a prompt to the Gemini model and returns its text response.
- * @param {string} prompt - The formatted prompt to send.
- * @returns {Promise<string>} - The generated answer.
- */
 export const generateAnswer = async (prompt) => {
   try {
     const response = await fetch(
@@ -16,8 +11,8 @@ export const generateAnswer = async (prompt) => {
         body: JSON.stringify({
           contents: [{ role: 'user', parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.2, // low for factual accuracy
-            maxOutputTokens: 512, // prevent overly long responses
+            temperature: 0.2, 
+            maxOutputTokens: 512, 
           },
           safetySettings: [
             { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
@@ -32,10 +27,7 @@ export const generateAnswer = async (prompt) => {
 
     const data = await response.json();
 
-    // Optional: log raw output for debugging
-    console.log("Gemini response:", JSON.stringify(data, null, 2));
-
-    // Safely extract text output
+  
     const text =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ||
       data?.candidates?.[0]?.output ||
@@ -43,7 +35,7 @@ export const generateAnswer = async (prompt) => {
 
     return text.trim();
   } catch (err) {
-    console.error("Gemini API error:", err.message);
+  
     return "Error: Unable to generate answer from Gemini.";
   }
 };

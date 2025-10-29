@@ -8,21 +8,17 @@ import { encode } from "gpt-tokenizer";
 import { limitContextLength } from "../utils/limitContext.utils.js";
 
 
-/* ===========================
-🧠 TRAIN NEW TEXT
-=========================== */
 export const trainText = async (req, res) => {
 try {
 const { text } = req.body;
 if (!text?.trim()) return res.status(400).json({ error: "Text required" });
 
-// 🔸 Auto-generate tags
+
 const tags = text
   .toLowerCase()
   .split(/\W+/)
   .filter((w) => w.length > 2);
 
-// 🔸 Split into overlapping chunks
 const chunks = chunkText(text, 300, 50);
 const saved = [];
 
@@ -30,7 +26,6 @@ for (const chunk of chunks) {
  
   const embedding = await embedText(chunk);
 
-  // semantic deduplication
   const { isDuplicate } = await deduplicateTexts(embedding, Input);
   if (isDuplicate) continue;
 
@@ -47,20 +42,17 @@ for (const chunk of chunks) {
 
 res.json({
   success: true,
-  message: `✅ Stored ${saved.length} unique chunks.`,
+  message: ` Stored ${saved.length} unique chunks.`,
 });
 
 
 } catch (err) {
-console.error("❌ Train Error:", err);
+console.error(" Train Error:", err);
 res.status(500).json({ error: "Failed to embed and store text" });
 }
 };
 
 
-/* ===========================
-💬 CHAT RAG (HYBRID SEARCH)
-=========================== */
 export const chatRAG = async (req, res) => {
 try {
 const { question } = req.body;

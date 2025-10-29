@@ -1,4 +1,3 @@
-// models/input.model.js
 import mongoose from "mongoose";
 
 const inputSchema = new mongoose.Schema({

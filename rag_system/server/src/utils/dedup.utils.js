@@ -1,11 +1,10 @@
 
 export const deduplicateTexts = async (newEmbedding, model) => {
   try {
-    // Perform a vector search to find the most semantically similar documents
     const results = await model.aggregate([
       {
         $vectorSearch: {
-          index: "vectorIndex", // must match your Atlas Search vector index name
+          index: "vectorIndex", 
           path: "embedding",
           queryVector: newEmbedding,
           similarity: "cosine",
@@ -21,7 +20,7 @@ export const deduplicateTexts = async (newEmbedding, model) => {
       },
     ]);
 
-    // Check if any retrieved doc is highly similar (e.g., similarity > 0.9)
+    
     if (results.length > 0 && results[0].score > 0.9) {
       return {
         isDuplicate: true,
@@ -31,7 +30,7 @@ export const deduplicateTexts = async (newEmbedding, model) => {
 
     return { isDuplicate: false };
   } catch (error) {
-    console.error("❌ VectorSearch Deduplication Error:", error);
+    // console.error("❌ VectorSearch Deduplication Error:", error);
     return { isDuplicate: false, reason: "Error during vector deduplication" };
   }
 };
