@@ -12,4 +12,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api', embeddingRoutes);
 
+app.get('/', (req, res) => {    
+    res.send('RAG System is running');
+});
+
 export default app;
