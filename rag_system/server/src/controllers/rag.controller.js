@@ -97,14 +97,14 @@ const context = trimmed.map((c) => c.text).join("\n\n");
 if (!context.trim())
   return res.json({ answer: "I don’t know", sources: [] });
 
-const prompt = `You are an expert assistant. Use ONLY the context below to answer clearly.
+const prompt = `You are an expert assistant about CSEC-CLUB. Use ONLY the context below to answer clearly.
 Context:${context} Question:${question}
-If the answer is not in the context, reply exactly with "I don’t know".
+If the answer is not in the context, reply exactly with "I don’t know." , but if you asked about yourself respond that you are an AI model.
 Answer:
 `;
 
 const rawAnswer = await generateAnswer(prompt);
-const answer = rawAnswer?.trim() || "I don’t know";
+const answer = rawAnswer?.trim();
 
 setCache(cacheKey, answer);
 res.json({ answer, sources: trimmed });
